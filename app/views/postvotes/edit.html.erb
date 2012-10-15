@@ -1,0 +1,9 @@
+<h1>Editing postvote</h1>
+<% if (session[:user_id] > 0)%>
+    <%= link_to 'Logout', logout_path %>
+<%end%>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @postvote %> |
+<%= link_to 'Back', postvotes_path %>

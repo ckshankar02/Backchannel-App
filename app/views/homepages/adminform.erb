@@ -1,0 +1,39 @@
+<html>
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<h3> Admin Options </h3>
+
+<% if flash[:notice] %>
+    <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+<body>
+<%= form_tag("/adminactions", :method => "post") do %>
+<%= radio_button_tag(:adminmenu, value = "viewuser",checked = true, options = {}) %> View all the User <br>
+<%= radio_button_tag(:adminmenu, value = "assignrole",checked = false, options = {}) %> Assign/Revoke Admin Roles to User <br>
+<%= radio_button_tag(:adminmenu, value = "deluser",checked = true, options = {}) %> Delete a User <br>
+<%= radio_button_tag(:adminmenu, value = "category",checked = false, options = {}) %> Add/Remove Category <br>
+<%= radio_button_tag(:adminmenu, value = "reports",checked = false, options = {}) %> Forum Reports <br><br>
+<table>
+<tr><td><%= submit_tag("Proceed") %></td></tr>
+ </table>
+<% end %>
+</body>
+
+</html>

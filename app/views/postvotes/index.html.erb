@@ -1,0 +1,29 @@
+<h1>Listing postvotes</h1>
+<% if (session[:user_id] > 0)%>
+    <%= link_to 'Logout', logout_path %>
+<%end%>
+<table>
+  <tr>
+    <th>User</th>
+    <th>Post</th>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @postvotes.each do |postvote| %>
+  <tr>
+    <td><%= postvote.user %></td>
+    <td><%= postvote.post %></td>
+    <td><%= postvote.time %></td>
+    <td><%= link_to 'Show', postvote %></td>
+    <td><%= link_to 'Edit', edit_postvote_path(postvote) %></td>
+    <td><%= link_to 'Delete', postvote, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Postvote', new_postvote_path %>

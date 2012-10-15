@@ -1,0 +1,66 @@
+<html>
+
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+<br>
+
+<%= link_to 'Search Again', searchcont_path %>
+<br>
+<h4>
+<%= @rststatus %>
+</h4>
+<br>
+<br>
+<!-- Lists all the posts -->
+
+<table>
+  <% inc = 2 %>
+  <% @postrst.each do |post| %>
+      <% post.posts.each do |cont| %>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+
+      <tr id="td<%= inc %>" >
+        <td align="center">
+          <b> <%= post.username %> </b>
+        </td>
+
+        <td width="450px" align="center">
+          <div><%= cont.title %></div>
+          <textarea align="left" disabled="false" cols="50" rows="7" >
+
+            <%= cont.content %>
+
+          </textarea>
+        </td>
+      </tr>
+      <%end%>
+  <% end %>
+
+</table>
+
+
+</html>

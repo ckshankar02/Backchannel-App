@@ -1,0 +1,56 @@
+<html>
+
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<h3>Assign Admin Privileges</h3>
+<body>
+<!-- User with his current access status -->
+<%  inc = 2 %>
+<table width="500px">
+ <tr align="center"><td>User</td><td>Privilege</td></tr>
+  <% @useradlist.each do |u| %>
+      <% if u.username != 'admin' && u.username != session[:user_name]%>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+
+      <tr id="pst<%= inc %>" >
+        <td align="center" width="250px">
+        <%=  u.username %>  <br>
+      </td>
+       <td align="center">
+         <% if u.adminaccess == "n" %>
+             <%= link_to "Assign", {:action => "assignrole", :id=> u.user_id} %>
+         <% else %>
+             <%= link_to "Revoke", {:action => "assignrole", :id=> u.user_id} %>
+         <%end%>
+        </td>
+      </tr>
+          <%end%>
+  <% end %>
+</table>
+</body>
+</html>

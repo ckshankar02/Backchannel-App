@@ -1,0 +1,29 @@
+<h1>Listing cmtvotes</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Post</th>
+    <th>Comment</th>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cmtvotes.each do |cmtvote| %>
+  <tr>
+    <td><%= cmtvote.user %></td>
+    <td><%= cmtvote.post %></td>
+    <td><%= cmtvote.comment %></td>
+    <td><%= cmtvote.time %></td>
+    <td><%= link_to 'Show', cmtvote %></td>
+    <td><%= link_to 'Edit', edit_cmtvote_path(cmtvote) %></td>
+    <td><%= link_to 'Destroy', cmtvote, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cmtvote', new_cmtvote_path %>

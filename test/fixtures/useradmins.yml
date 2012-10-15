@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  username: MyString
+  adminaccess: MyString
+
+two:
+  user: 
+  username: MyString
+  adminaccess: MyString
+
+useradmin3:
+  user:
+  username: MyString
+  adminaccess: MyString
+  id: 3
+  user_id: 3

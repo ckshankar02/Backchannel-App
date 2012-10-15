@@ -1,0 +1,51 @@
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" >
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Login', new_homepage_path %>
+    </td>
+  </tr>
+</table>
+
+<%= form_for @user,  :action =>new_homepage_path do |f| %>
+   <div>
+      <%= f.label :username %><br />
+      <%= f.text_field :username %>
+   </div>
+    <br />
+    <div>
+      <%= f.label :firstname %><br />
+      <%= f.text_field :firstname %>
+    </div>
+    <br />
+    <div>
+      <%= f.label :lastname %><br />
+      <%= f.text_field :lastname %>
+    </div>
+    <br />
+    <div>
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    <br />
+    <div>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </div>
+    <br />
+    <div>
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <br />
+    <br />
+    <div>
+      <%= f.submit 'Create Account'%>
+    </div>
+<% end %>
+
+

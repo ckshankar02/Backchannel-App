@@ -1,0 +1,53 @@
+<html>
+
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<h3>User Account Deletion</h3>
+
+<body>
+<%  inc = 2 %>
+
+<table width="300px">
+    <% @userdellist.each do |u| %>
+
+          <% if inc == 1%>
+                <% inc = 2 %>
+            <% else if inc == 2%>
+                <% inc = 1 %>
+            <% end %>
+          <% end %>
+    <% if u.id != session[:user_id] %>
+      <tr id="pst<%= inc %>">
+        <td align="center" width="200px">
+                <%= "#{u.username}" %>
+        </td>
+        <td align="center" >
+              <%= link_to "Delete User", {:action => "delusers", :id=> u.id} %>
+        </td>
+      </tr>
+    <%end%>
+  <% end %>
+</table>
+</body>
+
+</html>

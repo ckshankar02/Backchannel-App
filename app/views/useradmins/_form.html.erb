@@ -1,0 +1,29 @@
+<%= form_for(@useradmin) do |f| %>
+  <% if @useradmin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@useradmin.errors.count, "error") %> prohibited this useradmin from being saved:</h2>
+
+      <ul>
+      <% @useradmin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </div>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :adminaccess %><br />
+    <%= f.text_field :adminaccess %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

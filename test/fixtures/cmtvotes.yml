@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  post: 
+  comment: 
+  time: 2012-09-17 14:20:02
+  user_id: 3
+  post_id: 3
+  comment_id: 3
+
+two:
+  user: 
+  post: 
+  comment: 
+  time: 2012-09-17 14:20:02
+  user_id: 3
+  post_id: 3
+  comment_id: 3

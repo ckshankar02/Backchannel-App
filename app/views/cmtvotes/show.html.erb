@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @cmtvote.user %>
+</p>
+
+<p>
+  <b>Post:</b>
+  <%= @cmtvote.post %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @cmtvote.comment %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @cmtvote.time %>
+</p>
+
+
+<%= link_to 'Edit', edit_cmtvote_path(@cmtvote) %> |
+<%= link_to 'Back', cmtvotes_path %>

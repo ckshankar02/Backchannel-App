@@ -1,0 +1,68 @@
+<html>
+
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<h3>Add/Remove Categories</h3>
+<!-- Add a category-->
+<body>
+<table class="tab1">
+  <tr>
+    <td colspan="2"><b>Adding New category</b><br></td>
+  </tr>
+  <tr>
+      <%= form_tag("/addcategory", :method => "post") do %>
+          <td align="right" width="130px">
+          Category Name:
+            </td>
+        <td align="center">
+          <%= text_field_tag 'addcat',nil,:placeholder => 'Enter category name' %>
+          </td>
+          <td align="left" width="100">
+          <%= submit_tag("Add Category") %>
+          <td>
+      <% end %>
+  </tr>
+</table>
+ <br>
+ <br>
+<!-- Delete a Category -->
+<table class="tab1">
+  <tr>
+    <td colspan="2"><b>Deleting Existing Categories</b></td>
+  </tr>
+<tr>
+    <%= form_tag("/delcategory", :method => "post") do %>
+      <td align="right" width="130px">
+        Select Category:
+      </td>
+      <td align="center">
+        <%= collection_select(:category, :id, @catlist, :id, :categoryname )%>
+      </td>
+      <td align="left" width="100">
+        <%= submit_tag ("Delete Category") %>
+      <td>
+  <% end %>
+</tr>
+</table>
+</body>
+</html>

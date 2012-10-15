@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  category: MyString
+  time: 2012-09-16 21:48:09
+  content: MyText
+  user: 
+
+two:
+  title: MyString
+  category: MyString
+  time: 2012-09-16 21:48:09
+  content: MyText
+  user: 
+three:
+  title: MyString
+  category: MyString
+  time: 2012-09-16 21:48:09
+  content: MyText
+  user:
+  user_id:  3
+  id: 3
+four:
+  title: MyString
+  category: MyString
+  time: 2012-09-16 21:48:09
+  content: MyText
+  user:
+  user_id:  3
+  id: 4

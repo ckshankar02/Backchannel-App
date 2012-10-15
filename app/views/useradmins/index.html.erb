@@ -1,0 +1,27 @@
+<h1>Listing useradmins</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Username</th>
+    <th>Adminaccess</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @useradmins.each do |useradmin| %>
+  <tr>
+    <td><%= useradmin.user %></td>
+    <td><%= useradmin.username %></td>
+    <td><%= useradmin.adminaccess %></td>
+    <td><%= link_to 'Show', useradmin %></td>
+    <td><%= link_to 'Edit', edit_useradmin_path(useradmin) %></td>
+    <td><%= link_to 'Destroy', useradmin, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Useradmin', new_useradmin_path %>

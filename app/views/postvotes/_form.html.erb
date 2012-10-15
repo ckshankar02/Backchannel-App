@@ -1,0 +1,39 @@
+<%= form_for(@postvote) do |f| %>
+  <% if @postvote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@postvote.errors.count, "error") %> prohibited this postvote from being saved:</h2>
+
+      <ul>
+      <% @postvote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= f.hidden_field :user, :value => session[:user_id] %>
+      <%= f.hidden_field :post, :value => @tempost.id  %>
+      <%= f.hidden_field :time %>
+    </div>
+    <div class="field">
+      <b>Title:</b> <%= f.label @tempost.title %>
+    </div>
+
+      <textarea disabled="false" cols="84px" rows="20px" align="left">
+        <%= @tempost.content %>
+      </textarea>
+ <br>
+
+<table width="700px">
+  <tr>
+    <td>
+      <%= link_to 'Back to Post', post_path(@tempost) %>
+    </td>
+    <td align="right">
+        <%= f.submit 'Vote' %>
+    </td>
+  </tr>
+</table>
+
+<% end %>

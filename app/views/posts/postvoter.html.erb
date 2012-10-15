@@ -1,0 +1,46 @@
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<div class="field">
+  <b>Title:</b> <%= @selpost.title %>
+</div>
+
+<textarea disabled="false" cols="84px" rows="20px" align="left">
+  <%= @selpost.content %>
+</textarea>
+
+<div>
+  <%= link_to 'Back to Post', post_path(@selpost) %>
+</div>
+  <br>
+<div>
+The following users have voted for the post
+</div>
+
+<table class="pstv">
+<% @pstvoter.each do |x| %>
+  <tr><td>
+<%= x.username %>
+  </td></tr>
+<%end%>
+</table>
+

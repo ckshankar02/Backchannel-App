@@ -1,0 +1,171 @@
+
+
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+ <tr>
+   <td align="right">Category :</td><td><b><%= @post.category -%></b></td>
+ </tr>
+ <tr>
+   <td align="right">Posted By:</td><td><b><%= @post.user.username %></b></td>
+</tr>
+</table>
+
+<br>
+
+<table id="table1">
+  <tr >
+    <td align = "left" class="t1">
+     Title: <b><%= @post.title %></b>
+      </td>
+    <td align ="right" class="t1" width ="300px ">
+    Posted on:  <b><%= @post.updated_at.strftime("%b-%d-%Y at %I:%M:%S %p") %></b>
+    </td>
+</table>
+
+<textarea disabled="false" cols="97px" rows="20px" align="left">
+  <%= @post.content %>
+</textarea>
+<br>
+
+
+
+<table width="800px">
+  <tr>
+    <td align="left">
+        <!-- Provides the option to edit and delete the post if the current session user is the owner of a post -->
+        <% if session[:user_id] > 0 || session[:user_access] =="y" -%>
+            <% if (@post.user_id == session[:user_id]) || (session[:user_name] == 'admin'|| session[:user_access] =="y")  -%>
+                <%= link_to 'Edit Post', edit_post_path(@post) -%> |
+                <%= link_to 'Delete Post', @post, confirm: 'Are you sure?', method: :delete -%>
+            <% end -%>
+    </td>
+    <td align="right">
+            <!-- Option to vote if the user has not already voted and user is not the owner of the post-->
+            <% if (@pvote <= 0 && @post.user_id != session[:user_id])|| (session[:user_name] == 'admin') -%>
+                <b> <%= link_to "Vote the Post", new_postvote_path({:id => @post.id}) -%></b>
+            <% end -%>
+      <% end -%>
+    </td>
+  </tr>
+</table>
+
+<% if session[:user_id] > 0 || session[:user_access] =="y" %>
+    <% if (@post.user_id != session[:user_id]) %>
+        <br><br>
+       <table id="table1">
+          <tr><td class="t1">  <b> <%= link_to "#{@pvstatus}", postvoter_path({:id => @post.id}) %></b>  </td></tr>
+       </table>
+    <% end %>
+<% end %>
+
+<br>
+
+<!-- Provides textarea to a user who is not the owner of the post and also he has not yet commented on the post -->
+<% if (session[:user_id] > 0) || session[:user_access] =="y" %>
+    <% if @usercount == 0 || (session[:user_name] == 'admin') || session[:user_access] =="y"%>
+        <% if @post.user_id != session[:user_id] %>
+            <h4>Comment on Post</h4>
+                <%= form_for([@post, @post.comments.build]) do |f| %>
+                      <div class="field">
+                        <%= f.text_area :content, :cols => "84", :rows => "7" %>
+                      </div>
+                      <div class="actions">
+                        <%= f.submit 'Post Comment' %>
+                      </div>
+                <% end %>
+        <%end%>
+    <% end %>
+<% end %>
+
+<br>
+<br>
+
+<!-- Lists all the comment -->
+<div>
+<h4>Comments</h4>
+    <% if @sortedcmt.count == 0 %>
+      No comments yet!
+    <% end %>
+</div>
+
+<table width="800px">
+    <% @usercount = 0 %>
+    <% inc = 2 %>
+    <% @sortedcmt.each do |comment| %>
+        <% if inc == 1%>
+            <% inc = 2 %>
+        <% else if inc == 2%>
+            <% inc = 1 %>
+        <% end %>
+    <% end %>
+    <tr id="td<%= inc %>" >
+        <td width ="90px" align="center" class="t1">
+            <b>
+                <%= @cuserinfo[comment.id]%>
+            </b>
+        </td>
+
+        <td width="450px">
+            <textarea align="left" disabled="false" cols="53" rows="4">
+                <%= comment.content %>
+            </textarea>
+        </td>
+
+
+    <!-- Provides the option to edit and delete the post if the current session user is the owner of a post -->
+        <% if session[:user_id] > 0 || session[:user_access] =="y"%>
+            <% if (@cuserinfo[comment.id] == session[:user_name])|| (session[:user_name] == 'admin') || session[:user_access] =="y" %>
+                <td align="center" width="40px"><%= link_to "Edit", edit_comment_path(comment)%>  </td>
+                <td align="center" width="50px"><%= link_to 'Delete', [comment.post, comment], :confirm => 'Are you sure?', :method => :delete %>  </td>
+            <%else%>
+                <td align="center" width="40px"></td>
+                <td align="center" width="50px"></td>
+            <%end%>
+
+            <% @lcid = comment.id %>
+            <% if @cuserinfo[comment.id] == session[:user_name] %>
+                <% @usercount = 1 %>
+            <% end %>
+
+    <!-- Option to vote if the user has not already voted and user is not the owner of the post-->
+            <% if @cvote[comment.id] <= 0 && @cuserinfo[comment.id] != session[:user_name] %>
+                <td align="center">
+                    <%= link_to "Vote", new_cmtvote_path({:id => @lcid}) %>
+                </td>
+            <%else%>
+                <td align="center"><b>  <%= @cvstatus[comment.id]  %> </b></td>
+            <% end %>
+        <% end %>
+    </tr>
+    <% end %>
+
+    <% if  session[:user_name] == 'admin'%>
+        <% @usercount = 0 %>
+    <% end %>
+
+</table>
+
+<br><br><br>

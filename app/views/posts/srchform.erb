@@ -1,0 +1,85 @@
+<html>
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+<br>
+
+<% if flash[:notice] %>
+    <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<body>
+<%= form_tag("/contentsearch", :method => "post") do %>
+
+<table class="tab1">
+  <tr>
+    <td colspan="2"><b>Search by User</b></td>
+  </tr>
+  <tr>
+
+    <td>
+      <%= radio_button_tag(:type_srch, value = "user",checked = true, options = {}) %>
+      <%= text_field_tag 'searchuser',nil,:placeholder => 'Enter username' %></br>
+    </td>
+    <td align="left" width="100px">
+      <%= submit_tag("Search") %>
+    <td>
+  </tr>
+</table>
+
+<br>
+
+<table class="tab1">
+  <tr>
+    <td colspan="2"><b>Search by Content</b></td>
+  </tr>
+  <tr>
+    <td>
+      <%= radio_button_tag(:type_srch, value = "content",checked = false, options = {}) %>
+      <%= text_field_tag 'searchcont',nil,:placeholder => 'Enter Search keyword' %></br>
+    </td>
+    <td align="left" width="100px">
+      <%= submit_tag("Search") %>
+    <td>
+  </tr>
+</table>
+
+<br>
+
+<table class="tab1">
+  <tr>
+    <td colspan="2"><b>Search by category</b></td>
+  </tr>
+  <tr>
+        <td>
+          <%= radio_button_tag(:type_srch, value = "category",checked = false, options = {}) %>
+          Select Category <%= collection_select(:category, :id, @catlist, :categoryname, :categoryname )%>
+        </td>
+        <td align="left" width="100px">
+          <%= submit_tag ("Search") %>
+        <td>
+
+  </tr>
+</table>
+
+<% end %>
+</body>
+</html>

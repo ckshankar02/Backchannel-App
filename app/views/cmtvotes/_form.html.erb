@@ -1,0 +1,56 @@
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<%= form_for(@cmtvote) do |f| %>
+  <% if @cmtvote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cmtvote.errors.count, "error") %> prohibited this cmtvote from being saved:</h2>
+
+      <ul>
+      <% @cmtvote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= f.hidden_field :user, :value => session[:user_id] %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :post, :value => @tempost  %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :comment, :value => @tempcmt.id  %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :time %>
+    </div>
+    <%= f.label :comment %><br />
+    <textarea disabled="true" cols="84px" rows="10px" align="left">
+      <%= @tempcmt.content %>
+    </textarea>
+    <div class="actions">
+      <%= f.submit 'Vote' %>
+    </div>
+<% end %>
+

@@ -1,0 +1,76 @@
+<table width="800px">
+  <tr>
+    <td  class="hdt" align="center" colspan="2">
+      <b> Back Channel Application </b>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %>  |
+      <%end%>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<h3>User Report</h3>
+<table>
+<tr align="center"><td>User</td><td>|Number of Posts|</td><td>Votes by user</td></tr>
+  <% inc = 2 %>
+<% @rep1.each do |x| %>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+<tr align="center" id="pst<%= inc %>">
+<td><%= x.username %></td>
+<td><%= x.posts.count%></td>
+  <td><%= x.postvotes.count%></td>
+</tr>
+<% end %>
+</table>
+<br>
+<h3>Category Report</h3>
+<table>
+  <tr align="center"><td>Category</td><td>Number of Posts</td></tr>
+  <% inc = 2 %>
+  <% @rep2.each do |x| %>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+      <tr align="center" id="pst<%= inc %>">
+        <td><%= x.category %></td>
+        <td><%= x.count%></td>
+      </tr>
+  <% end %>
+</table>
+<br>
+<h3>Post Report</h3>
+<table>
+  <tr align="center"><td>Title</td><td>Number of votes</td></tr>
+  <% inc = 2 %>
+  <% @rep3.each do |x| %>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+      <tr align="center" id="pst<%= inc %>">
+        <td><%= x.title %></td>
+        <td><%= x.postvotes.count %></td>
+      </tr>
+  <% end %>
+</table>

@@ -1,0 +1,23 @@
+<% if (session[:user_id] > 0)%>
+    <%= link_to 'Logout', logout_path %>
+<%end%>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @postvote.user %>
+</p>
+
+<p>
+  <b>Post:</b>
+  <%= @postvote.post %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @postvote.time %>
+</p>
+
+
+<%= link_to 'Edit', edit_postvote_path(@postvote) %> |
+<%= link_to 'Back', postvotes_path %>

@@ -1,0 +1,19 @@
+<h1>Welcome to Back Channel Application</h1>
+<p id="notice"><%= notice %></p>
+<table>
+  <tr>
+    <td>
+      <%= link_to "Login", new_homepage_path %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= link_to "Not Registered yet! sign up", new_user_path %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= link_to "Continue as Guest", posts_path(:guest => 'guest') %>
+    </td>
+  </tr>
+</table>

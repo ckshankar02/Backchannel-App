@@ -1,0 +1,74 @@
+<table width="800px">
+<tr>
+<td  class="hdt" align="center">
+ <b> Back Channel Application </b>
+</td>
+</tr>
+<tr>
+    <td align="right">
+      <%= link_to 'Home', posts_path  %> |
+      <% if session[:user_access] == "y" %>
+          <%= link_to 'Admin Menu', adminmp_path %> |
+      <%end%>
+      <% if session[:user_id] <= 0 %>
+          <%= link_to 'Login', new_homepage_path %>
+      <% end %>
+      <% if (session[:user_id] > 0)%>
+          <%= link_to 'Logout', logout_path %>
+      <%end%>
+    </td>
+</tr>
+</table>
+
+<p id="notice"><%= notice %></p>
+
+<table width="800px">
+<tr class="ph">
+  <td align="left" colspan="2">
+
+    <% if (session[:user_id] > 0) || session[:user_access] == "y" %>
+        <b><%= link_to 'New Post', new_post_path %></b>
+    <%end%>
+  </td>
+  <td align="center">
+    <b><%= link_to 'Search Post', searchcont_path %></b>
+    </td>
+</tr>
+
+  <tr><td colspan="3"><br></td> </tr>
+  <tr>
+    <th width="500px">Recent Posts</th>
+    <th>Posted By</th>
+    <th>Posted on</th>
+  </tr>
+  <% inc = 2 %>
+<% @posts.each do |post| %>
+      <% if inc == 1%>
+          <% inc = 2 %>
+      <% else if inc == 2%>
+              <% inc = 1 %>
+          <% end %>
+      <% end %>
+  <tr id="pst<%= inc %>">
+    <td><%= link_to "#{post.title}", post %></td>
+    <td align="center"><%= @userinfo[post.id] %></td>
+    <td align="center"><%= post.updated_at.strftime("%b-%d-%Y at %I:%M:%S %p") %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+
+<table width="800px">
+  <tr class="ph">
+    <td align="left">
+
+      <% if (session[:user_id] > 0) || session[:user_access] == "y" %>
+          <%= link_to 'New Post', new_post_path %>
+      <%end%>
+    </td>
+    <td align="right">
+      <%= link_to 'Search Post', searchcont_path %>
+    </td>
+  </tr>
+</table>
+
